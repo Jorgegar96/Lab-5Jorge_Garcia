@@ -2,6 +2,8 @@
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +22,7 @@ public class Frame_Principal extends javax.swing.JFrame {
     public Frame_Principal() {
         equipos = new ArrayList();
         agentes_libres = new ArrayList();
+        equipo_seleccionado = new Equipo();
         initComponents();
     }
 
@@ -85,12 +88,24 @@ public class Frame_Principal extends javax.swing.JFrame {
         jb_modJugador = new javax.swing.JButton();
         jb_elimJugador = new javax.swing.JButton();
         jb_salirGestion = new javax.swing.JButton();
+        jd_arbol = new javax.swing.JDialog();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jt_liga = new javax.swing.JTree();
+        jb_salirArbol = new javax.swing.JButton();
+        jd_fichajes = new javax.swing.JDialog();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jl_equipos2 = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jl_jugadoresDisp = new javax.swing.JList<>();
+        jb_fichar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jb_gestionEquipos = new javax.swing.JButton();
         jb_crearEquipo = new javax.swing.JButton();
         jb_crearJugador = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jb_disponibles = new javax.swing.JButton();
         jb_arbolEquipos = new javax.swing.JButton();
         jb_fichajes = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -458,6 +473,101 @@ public class Frame_Principal extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
+        jLabel20.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        jLabel20.setText("Arbol de Equipos");
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Liga Española");
+        jt_liga.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane3.setViewportView(jt_liga);
+
+        jb_salirArbol.setText("Salir");
+
+        javax.swing.GroupLayout jd_arbolLayout = new javax.swing.GroupLayout(jd_arbol.getContentPane());
+        jd_arbol.getContentPane().setLayout(jd_arbolLayout);
+        jd_arbolLayout.setHorizontalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_arbolLayout.createSequentialGroup()
+                .addGroup(jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_arbolLayout.createSequentialGroup()
+                        .addGroup(jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jd_arbolLayout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(jLabel20))
+                            .addGroup(jd_arbolLayout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 50, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_arbolLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jb_salirArbol)))
+                .addContainerGap())
+        );
+        jd_arbolLayout.setVerticalGroup(
+            jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_arbolLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jb_salirArbol)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        jLabel21.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        jLabel21.setText("Fichajes");
+
+        jScrollPane4.setViewportView(jl_equipos2);
+
+        jl_jugadoresDisp.setModel(new javax.swing.AbstractListModel<Object>() {
+            String[] strings = { " " };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane5.setViewportView(jl_jugadoresDisp);
+
+        jb_fichar.setText("------->");
+        jb_fichar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_ficharMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_fichajesLayout = new javax.swing.GroupLayout(jd_fichajes.getContentPane());
+        jd_fichajes.getContentPane().setLayout(jd_fichajesLayout);
+        jd_fichajesLayout.setHorizontalGroup(
+            jd_fichajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_fichajesLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel21)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jd_fichajesLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jb_fichar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jd_fichajesLayout.setVerticalGroup(
+            jd_fichajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_fichajesLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addGroup(jd_fichajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_fichajesLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(jd_fichajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4))
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_fichajesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jb_fichar)
+                        .addGap(116, 116, 116))))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
@@ -486,11 +596,21 @@ public class Frame_Principal extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("jButton4");
+        jb_disponibles.setText("Agentes Libres");
 
         jb_arbolEquipos.setText("Arbol de equipos");
+        jb_arbolEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_arbolEquiposMouseClicked(evt);
+            }
+        });
 
         jb_fichajes.setText("Fichajes");
+        jb_fichajes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_fichajesMouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/default_user_icon.png"))); // NOI18N
 
@@ -507,7 +627,7 @@ public class Frame_Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jb_arbolEquipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jb_disponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jb_fichajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -541,7 +661,7 @@ public class Frame_Principal extends javax.swing.JFrame {
                         .addGap(73, 73, 73)
                         .addComponent(jb_crearJugador))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(jb_disponibles)
                         .addGap(73, 73, 73)
                         .addComponent(jb_arbolEquipos)))
                 .addGap(39, 39, 39)
@@ -654,7 +774,8 @@ public class Frame_Principal extends javax.swing.JFrame {
                 int res_fis = Integer.parseInt(this.tf_resFis.getText());
                 System.out.println("4");
                 if (habilidad < 101 && tecnica < 101 && res_fis < 101) {
-                    agentes_libres.add(new Jugador(name, precio, pos, habilidad, tecnica, res_fis));
+                    DefaultListModel modelo = (DefaultListModel)this.jl_jugadoresDisp.getModel();
+                    modelo.addElement(new Jugador(name, precio, pos, habilidad, tecnica, res_fis));
                     this.tf_nombreJugador.setText("");
                     this.tf_precioJugador.setText("");
                     this.tf_habilidad.setText("");
@@ -719,22 +840,28 @@ public class Frame_Principal extends javax.swing.JFrame {
 
     private void jb_elimEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_elimEquipoMouseClicked
         DefaultListModel equipos = (DefaultListModel) this.lista_equipos.getModel();
-        this.equipos.remove(equipos.getElementAt(lista_equipos.getSelectedIndex()));
+        this.equipos.remove(equipos.get(lista_equipos.getSelectedIndex()));
         actualizarEquipos();
     }//GEN-LAST:event_jb_elimEquipoMouseClicked
 
     private void jb_modEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_modEquipoMouseClicked
-        this.jd_crearEquipos.setVisible(true);
-        this.jd_gestion.setVisible(false);
-        this.jd_crearEquipos.pack();
-        actionEquipo = 2;
+        if (this.lista_equipos.getSelectedIndex() >= 0) {
+            this.jd_crearEquipos.setVisible(true);
+            this.jd_gestion.setVisible(false);
+            this.jd_crearEquipos.pack();
+            //equipo_seleccionado = (Equipo) equipos.get(lista_equipos.getSelectedIndex());
+            actionEquipo = 2;
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay un equipo seleccionado!");
+        }
     }//GEN-LAST:event_jb_modEquipoMouseClicked
 
     private void lista_equiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lista_equiposMouseClicked
         if (equipos.size() > 0) {
             DefaultListModel equipos = (DefaultListModel) this.lista_equipos.getModel();
-            actualizarJugadoresEquipo(lista_equipos.getSelectedValue());
-            equipo_seleccionado = (Equipo) equipos.getElementAt(lista_equipos.getSelectedIndex());
+            actualizarJugadoresEquipo((Equipo) equipos.get(lista_equipos.getSelectedIndex()));
+            equipo_seleccionado = (Equipo) equipos.get(lista_equipos.getSelectedIndex());
+            System.out.println("234567");
         }
     }//GEN-LAST:event_lista_equiposMouseClicked
 
@@ -743,7 +870,7 @@ public class Frame_Principal extends javax.swing.JFrame {
         DefaultListModel plantilla = (DefaultListModel) this.lista_jugadores_equipo.getModel();
         plantilla.removeAllElements();
         if (this.equipos.size() > 0) {
-            for (Jugador jugador : ((Equipo)equipos.getElementAt(lista_equipos.getSelectedIndex())).getPlantilla()) {
+            for (Jugador jugador : ((Equipo) equipos.getElementAt(lista_equipos.getSelectedIndex())).getPlantilla()) {
                 plantilla.addElement(jugador);
             }
         }
@@ -752,6 +879,35 @@ public class Frame_Principal extends javax.swing.JFrame {
         actualizarEquipos();
         lista_jugadores_equipo.setModel(plantilla);
     }//GEN-LAST:event_jb_elimJugadorMouseClicked
+
+    private void jb_arbolEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_arbolEquiposMouseClicked
+        this.setVisible(false);
+        this.jd_arbol.pack();
+        this.jd_arbol.setVisible(true);
+        this.jd_arbol.setLocationRelativeTo(this);
+        actualizarArbolEquipos();
+    }//GEN-LAST:event_jb_arbolEquiposMouseClicked
+
+    private void jb_ficharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ficharMouseClicked
+        DefaultListModel modelo = (DefaultListModel) this.jl_equipos2.getModel();
+        DefaultListModel modelo2 = (DefaultListModel) this.jl_jugadoresDisp.getModel();
+        Equipo seleccionado = (Equipo) modelo.get(jl_equipos2.getSelectedIndex());
+        Jugador player = (Jugador) modelo2.get(jl_jugadoresDisp.getSelectedIndex());
+        if (seleccionado.getPresupuesto() >= player.getPrecio()){
+            seleccionado.getPlantilla().add(player);
+            modelo2.removeElement(player);
+            jl_jugadoresDisp.setModel(modelo2);
+        }else{
+            JOptionPane.showMessageDialog(null, "Fondos insuficientes");
+        }
+    }//GEN-LAST:event_jb_ficharMouseClicked
+
+    private void jb_fichajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_fichajesMouseClicked
+        this.jd_fichajes.setModal(true);
+        jd_fichajes.setVisible(true);
+        jd_fichajes.pack();
+        jd_fichajes.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jb_fichajesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -790,7 +946,6 @@ public class Frame_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -803,6 +958,8 @@ public class Frame_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -812,6 +969,9 @@ public class Frame_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
@@ -822,22 +982,30 @@ public class Frame_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jb_clearJugador;
     private javax.swing.JButton jb_crearEquipo;
     private javax.swing.JButton jb_crearJugador;
+    private javax.swing.JButton jb_disponibles;
     private javax.swing.JButton jb_elimEquipo;
     private javax.swing.JButton jb_elimJugador;
     private javax.swing.JButton jb_fichajes;
+    private javax.swing.JButton jb_fichar;
     private javax.swing.JButton jb_gestionEquipos;
     private javax.swing.JButton jb_guardarEquipo;
     private javax.swing.JButton jb_guardarJugador;
     private javax.swing.JButton jb_modEquipo;
     private javax.swing.JButton jb_modJugador;
+    private javax.swing.JButton jb_salirArbol;
     private javax.swing.JButton jb_salirCreacionEquipo;
     private javax.swing.JButton jb_salirCrearJugador;
     private javax.swing.JButton jb_salirGestion;
+    private javax.swing.JDialog jd_arbol;
     private javax.swing.JDialog jd_crearEquipos;
     private javax.swing.JDialog jd_crearJugadores;
+    private javax.swing.JDialog jd_fichajes;
     private javax.swing.JDialog jd_gestion;
-    private javax.swing.JList<Equipo> lista_equipos;
-    private javax.swing.JList<Jugador> lista_jugadores_equipo;
+    private javax.swing.JList<Object> jl_equipos2;
+    private javax.swing.JList<Object> jl_jugadoresDisp;
+    private javax.swing.JTree jt_liga;
+    private javax.swing.JList<Object> lista_equipos;
+    private javax.swing.JList<Object> lista_jugadores_equipo;
     private javax.swing.JRadioButton rb_def;
     private javax.swing.JRadioButton rb_del;
     private javax.swing.JRadioButton rb_med;
@@ -876,5 +1044,39 @@ public class Frame_Principal extends javax.swing.JFrame {
             }
         }
         lista_jugadores_equipo.setModel(plantilla);
+    }
+
+    public void actualizarArbolEquipos() {
+        DefaultTreeModel arbol = (DefaultTreeModel) jt_liga.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) arbol.getRoot();
+        raiz.removeAllChildren();
+        for (Equipo equipo : equipos) {
+            DefaultMutableTreeNode nodo_equipo;
+            nodo_equipo = new DefaultMutableTreeNode(
+                    new Equipo(equipo.getNombre(),
+                            equipo.getPresupuesto(),
+                            equipo.getCopas_ganadas(),
+                            equipo.getEstadio()
+                    )
+            );
+            for (Jugador jugador : equipo.getPlantilla()) {
+                DefaultMutableTreeNode nodo_jugador;
+                nodo_jugador = new DefaultMutableTreeNode(
+                        new Jugador(jugador.getNombre(),
+                                jugador.getPrecio(),
+                                jugador.getPosicion(),
+                                jugador.getHabilidad(),
+                                jugador.getTecnica(),
+                                jugador.getResistencia_fisica()
+                        )
+                );
+                nodo_equipo.add(nodo_jugador);
+            }
+            raiz.add(nodo_equipo);
+        }
+    }
+    
+    public void actualizarDisp(){
+        
     }
 }
