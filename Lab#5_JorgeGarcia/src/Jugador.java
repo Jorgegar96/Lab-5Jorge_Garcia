@@ -20,11 +20,11 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(String nombre, float precio, String posicion, boolean disponibilidad, float habilidad, float tecnica, float resistencia_fisica) {
+    public Jugador(String nombre, float precio, String posicion, float habilidad, float tecnica, float resistencia_fisica) {
         this.nombre = nombre;
         this.precio = precio;
         this.posicion = posicion;
-        this.disponibilidad = disponibilidad;
+        this.disponibilidad = true;
         this.habilidad = habilidad;
         this.tecnica = tecnica;
         this.resistencia_fisica = resistencia_fisica;
