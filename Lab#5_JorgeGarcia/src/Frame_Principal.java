@@ -385,6 +385,11 @@ public class Frame_Principal extends javax.swing.JFrame {
         jb_modJugador.setText("Modificar");
 
         jb_elimJugador.setText("Eliminar");
+        jb_elimJugador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_elimJugadorMouseClicked(evt);
+            }
+        });
 
         jb_salirGestion.setText("Salir");
         jb_salirGestion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -578,7 +583,7 @@ public class Frame_Principal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this.jd_crearEquipos, "¡Ha ocurrido un error y no se agrego el equipo!");
             }
             actualizarEquipos();
-        } else if (actionEquipo == 2){
+        } else if (actionEquipo == 2) {
             this.tf_nombreEquipo.setText(equipo_seleccionado.getNombre());
             this.tf_presupuesto.setText(Float.toString(equipo_seleccionado.getPresupuesto()));
             this.sp_copas.setValue(equipo_seleccionado.getCopas_ganadas());
@@ -729,9 +734,24 @@ public class Frame_Principal extends javax.swing.JFrame {
         if (equipos.size() > 0) {
             DefaultListModel equipos = (DefaultListModel) this.lista_equipos.getModel();
             actualizarJugadoresEquipo(lista_equipos.getSelectedValue());
-            equipo_seleccionado = (Equipo)equipos.get(lista_equipos.getSelectedIndex());
+            equipo_seleccionado = (Equipo) equipos.getElementAt(lista_equipos.getSelectedIndex());
         }
     }//GEN-LAST:event_lista_equiposMouseClicked
+
+    private void jb_elimJugadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_elimJugadorMouseClicked
+        DefaultListModel equipos = (DefaultListModel) this.lista_equipos.getModel();
+        DefaultListModel plantilla = (DefaultListModel) this.lista_jugadores_equipo.getModel();
+        plantilla.removeAllElements();
+        if (this.equipos.size() > 0) {
+            for (Jugador jugador : ((Equipo)equipos.getElementAt(lista_equipos.getSelectedIndex())).getPlantilla()) {
+                plantilla.addElement(jugador);
+            }
+        }
+        lista_jugadores_equipo.setModel(plantilla);
+        this.equipos.remove(((Equipo) equipos.getElementAt(lista_equipos.getSelectedIndex())).getPlantilla());
+        actualizarEquipos();
+        lista_jugadores_equipo.setModel(plantilla);
+    }//GEN-LAST:event_jb_elimJugadorMouseClicked
 
     /**
      * @param args the command line arguments
