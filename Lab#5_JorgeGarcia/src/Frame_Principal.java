@@ -100,6 +100,9 @@ public class Frame_Principal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jl_jugadoresDisp = new javax.swing.JList<>();
         jb_fichar = new javax.swing.JButton();
+        pp_jugador = new javax.swing.JPopupMenu();
+        jm_stats = new javax.swing.JMenuItem();
+        jm_remove = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jb_gestionEquipos = new javax.swing.JButton();
@@ -478,6 +481,11 @@ public class Frame_Principal extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Liga Española");
         jt_liga.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jt_liga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_ligaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jt_liga);
 
         jb_salirArbol.setText("Salir");
@@ -517,13 +525,10 @@ public class Frame_Principal extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabel21.setText("Fichajes");
 
+        jl_equipos2.setModel(new DefaultListModel());
         jScrollPane4.setViewportView(jl_equipos2);
 
-        jl_jugadoresDisp.setModel(new javax.swing.AbstractListModel<Object>() {
-            String[] strings = { " " };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        jl_jugadoresDisp.setModel(new DefaultListModel());
         jScrollPane5.setViewportView(jl_jugadoresDisp);
 
         jb_fichar.setText("------->");
@@ -567,6 +572,17 @@ public class Frame_Principal extends javax.swing.JFrame {
                         .addComponent(jb_fichar)
                         .addGap(116, 116, 116))))
         );
+
+        jm_stats.setText("Ver Stats");
+        jm_stats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jm_statsActionPerformed(evt);
+            }
+        });
+        pp_jugador.add(jm_stats);
+
+        jm_remove.setText("Eliminar");
+        pp_jugador.add(jm_remove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -687,13 +703,15 @@ public class Frame_Principal extends javax.swing.JFrame {
     private void jb_guardarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_guardarEquipoMouseClicked
         if (actionEquipo == 1) {
             try {
-                equipos.add(
+                DefaultListModel modelo = (DefaultListModel)this.jl_equipos2.getModel();
+                modelo.addElement(
                         new Equipo(this.tf_nombreEquipo.getText(),
                                 Float.parseFloat(this.tf_presupuesto.getText()),
                                 (int) this.sp_copas.getValue(),
                                 this.tf_estadio.getText()
                         )
                 );
+                jl_equipos2.setModel(modelo);
                 this.tf_nombreEquipo.setText("");
                 this.tf_presupuesto.setText("");
                 this.sp_copas.setValue(0);
@@ -816,6 +834,7 @@ public class Frame_Principal extends javax.swing.JFrame {
         this.jd_crearJugadores.pack();
         this.jd_crearJugadores.setLocationRelativeTo(this);
         actionJugador = 1;
+        this.jb_crearJugador.setEnabled(true);
     }//GEN-LAST:event_jb_crearJugadorMouseClicked
 
     private void jb_gestionEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_gestionEquiposMouseClicked
@@ -897,6 +916,7 @@ public class Frame_Principal extends javax.swing.JFrame {
             seleccionado.getPlantilla().add(player);
             modelo2.removeElement(player);
             jl_jugadoresDisp.setModel(modelo2);
+            seleccionado.setPresupuesto(seleccionado.getPresupuesto() - player.getPrecio());
         }else{
             JOptionPane.showMessageDialog(null, "Fondos insuficientes");
         }
@@ -904,10 +924,38 @@ public class Frame_Principal extends javax.swing.JFrame {
 
     private void jb_fichajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_fichajesMouseClicked
         this.jd_fichajes.setModal(true);
-        jd_fichajes.setVisible(true);
+        
         jd_fichajes.pack();
+        jd_fichajes.setVisible(true);
         jd_fichajes.setLocationRelativeTo(this);
     }//GEN-LAST:event_jb_fichajesMouseClicked
+
+    private void jt_ligaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ligaMouseClicked
+        if (evt.isMetaDown()){
+            int row = this.jt_liga.getClosestRowForLocation(evt.getX(), evt.getY());
+            this.jt_liga.setSelectionRow(row);
+
+            /*determinar el tipo de objeto
+            contenido en el nodo selccionado
+             */
+            Object v1 = this.jt_liga.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+
+            if (nodo_seleccionado.getUserObject() instanceof Jugador) {
+
+                jugador_seleccionado = (Jugador) nodo_seleccionado.getUserObject();
+                this.pp_jugador.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jt_ligaMouseClicked
+
+    private void jm_statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jm_statsActionPerformed
+        this.jd_crearJugadores.setVisible(true);
+        this.jd_crearJugadores.setModal(true);
+        this.jd_crearJugadores.pack();
+        this.jb_crearJugador.setEnabled(false);
+        actionJugador = 2;
+    }//GEN-LAST:event_jm_statsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1003,9 +1051,12 @@ public class Frame_Principal extends javax.swing.JFrame {
     private javax.swing.JDialog jd_gestion;
     private javax.swing.JList<Object> jl_equipos2;
     private javax.swing.JList<Object> jl_jugadoresDisp;
+    private javax.swing.JMenuItem jm_remove;
+    private javax.swing.JMenuItem jm_stats;
     private javax.swing.JTree jt_liga;
     private javax.swing.JList<Object> lista_equipos;
     private javax.swing.JList<Object> lista_jugadores_equipo;
+    private javax.swing.JPopupMenu pp_jugador;
     private javax.swing.JRadioButton rb_def;
     private javax.swing.JRadioButton rb_del;
     private javax.swing.JRadioButton rb_med;
@@ -1025,12 +1076,15 @@ public class Frame_Principal extends javax.swing.JFrame {
     int actionJugador = 0;
     int actionEquipo = 0;
     Equipo equipo_seleccionado;
+    DefaultMutableTreeNode nodo_seleccionado;
+    Jugador jugador_seleccionado;
 
     public void actualizarEquipos() {
         DefaultListModel equipos = (DefaultListModel) this.lista_equipos.getModel();
         equipos.removeAllElements();
-        for (Equipo equipo : this.equipos) {
-            equipos.addElement(equipo);
+        DefaultListModel modelo = (DefaultListModel) this.jl_equipos2.getModel();
+        for (int x=0 ; x < modelo.size(); x++) {
+            equipos.addElement(modelo.getElementAt(x));
         }
         lista_equipos.setModel(equipos);
     }
@@ -1050,7 +1104,9 @@ public class Frame_Principal extends javax.swing.JFrame {
         DefaultTreeModel arbol = (DefaultTreeModel) jt_liga.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) arbol.getRoot();
         raiz.removeAllChildren();
-        for (Equipo equipo : equipos) {
+        DefaultListModel modelo = (DefaultListModel)this.jl_equipos2.getModel();
+        for (int x=0 ; x < modelo.size(); x++) {
+            Equipo equipo = (Equipo) modelo.getElementAt(x);
             DefaultMutableTreeNode nodo_equipo;
             nodo_equipo = new DefaultMutableTreeNode(
                     new Equipo(equipo.getNombre(),
@@ -1076,7 +1132,4 @@ public class Frame_Principal extends javax.swing.JFrame {
         }
     }
     
-    public void actualizarDisp(){
-        
-    }
 }
